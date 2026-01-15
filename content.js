@@ -2,7 +2,7 @@
  * compositionendで変換確定後に変換する
  */
 window.addEventListener('compositionend', (e) => {
-    const targetReg = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)てょん)/;
+    const targetReg = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)(て|手)ょん)/;
     if (targetReg.test(e.data)) {
         let newText = e.data.replace(targetReg, "python")
         while (targetReg.test(newText)) {

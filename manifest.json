@@ -3,7 +3,7 @@
   "name": "pyてょん to python",
   "short_name":"pyてょん to python",
   "version": "1.0",
-  "description": "「「pyてょん」と誤変換したものを変換確定後に「python」自動変換します",
+  "description": "「pyてょん」と誤変換したものを変換確定後に「python」自動変換します",
   "host_permissions": [
     "<all_urls>"
   ],
