@@ -15,12 +15,9 @@ window.addEventListener('load', async () => {
 window.addEventListener('compositionend', (e) => {
     // console.log(globalThis.python_ime_typo_fixer_setting)
     if (!globalThis.python_ime_typo_fixer_setting.isActive) return
-    const targetReg = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)(て|手)ょん)/;
+    const targetReg = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)(て|手)ょん)/g;
     if (targetReg.test(e.data)) {
-        let newText = e.data.replace(targetReg, "python")
-        while (targetReg.test(newText)) {
-            newText = newText.replace(targetReg, "python")
-        }
+        const newText = e.data.replace(targetReg, "python")
         const start = e.target.selectionStart;
         const end = e.target.selectionEnd;
         try {
