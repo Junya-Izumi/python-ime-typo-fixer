@@ -3,7 +3,6 @@
 ## インストール
 **この拡張機能はストアに公開していません**
 1. このリポジトリの clone または dowonload する<br>
-   clone command
    ```bash
    git clone https://github.com/Junya-Izumi/python-ime-typo-fixer.git
    ```
@@ -15,5 +14,6 @@
 リッチテキストエディタや一部テキスト欄で非対応の可能性があります
 ## License
 MIT license
+
 
 
