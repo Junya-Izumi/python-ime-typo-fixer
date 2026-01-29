@@ -14,8 +14,11 @@
   "content_scripts": [
     {
       "matches": ["https://*/*","http://*/*"], 
-      "js": ["content.js"],
+      "js": ["content/content.js"],
       "run_at": "document_idle"
     }
-  ]
+  ],
+  "background":{
+    "service_worker":"background/background.js"
+  }
 }
