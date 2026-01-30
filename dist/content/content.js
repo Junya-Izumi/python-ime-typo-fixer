@@ -16,15 +16,6 @@ window.addEventListener("compositionend", (e) => {
     const newText = e.data.replace(targetReg, "python");
     const start = target.selectionStart ?? 0;
     const end = target.selectionEnd ?? 0;
-    {
-      console.log({
-        "e.target": e.target,
-        "e.data": e.data,
-        "newText": newText,
-        "start": start,
-        "end": end
-      });
-      target.setRangeText(newText, start - e.data.length, end, "end");
-    }
+    target.setRangeText(newText, start - e.data.length, end, "end");
   }
 });

@@ -4,9 +4,9 @@ const getStorage = (key) => new Promise((resolve, reject) => {
 });
 const input_itActive = qs(".setting-isActive");
 window.addEventListener("DOMContentLoaded", async () => {
-  const storage = await getStorage("setting");
-  globalThis.python_ime_typo_fixer_setting = storage;
-  input_itActive.checked = storage.isActive;
+  const setting = await getStorage("setting");
+  globalThis.python_ime_typo_fixer_setting = setting;
+  input_itActive.checked = setting.isActive;
 });
 input_itActive.addEventListener("input", (e) => {
   if (e.currentTarget instanceof HTMLInputElement) {

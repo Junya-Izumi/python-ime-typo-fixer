@@ -10,10 +10,10 @@ const getStorage = (key: string) => new Promise((resolve, reject) => {
 const input_itActive = qs(".setting-isActive") as HTMLInputElement;
 window.addEventListener('DOMContentLoaded', async () => {
     //設定をglobalThisに入れる
-    const storage =  await getStorage('setting') as extensionSetting;
-    globalThis.python_ime_typo_fixer_setting = storage;
+    const setting =  await getStorage('setting') as extensionSetting;
+    globalThis.python_ime_typo_fixer_setting = setting;
     //ボタンに反映
-    input_itActive.checked = storage.isActive
+    input_itActive.checked = setting.isActive
 })
 
 //設定を反映
