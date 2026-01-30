@@ -1,0 +1,13 @@
+{
+    "name": "python-ime-typo-fixer",
+    "version": "",
+    "scripts": {
+        "build": "rimraf dist && vite build"
+    },
+    "devDependencies": {
+        "@types/chrome": "^0.1.36",
+        "@types/node": "^25.0.10",
+        "rimraf": "^6.1.2",
+        "vite": "^7.3.1"
+    }
+}

@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 70px;
+    width: 300px;
+    margin: 5px;
+}
+
+/* setting */
+.setting {
+    position: relative;
+}
+
+.setting-item-name {
+    font-size: large;
+}
+
+/* トグルボタンのcss */
+.toggle * {
+    margin: 0;
+    padding: 0;
+}
+
+.toggle_wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.toggle {
+    z-index: 999;
+    position: relative;
+    height: 30px;
+    width: 70px;
+    display: inline-block;
+}
+
+.toggle_track {
+    display: block;
+    height: calc(98% - 2px);
+    width: 100%;
+    background-color: #f79c9c;
+    border-radius: 50px;
+    border: solid 1px #bbb4b4;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle_thumb {
+    position: absolute;
+    height: 80%;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    left: 0px;
+    transform: translate(3px, -50%);
+    background-color: #fff;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.toggle_track input[type="checkbox"]:checked + .toggle_thumb {
+    left: 100%;
+    transform: translate(calc(-3px - 100%), -50%);
+    background-color: #6ee27f;
+}
