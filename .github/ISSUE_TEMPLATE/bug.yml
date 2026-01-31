@@ -1,0 +1,27 @@
+name: "バグ報告"
+description: "バグ報告テンプレート"
+title: "[GUB]"
+labels:
+  - "bug"
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "バグの概要"
+      placeholder: "バグの概要"
+    validations:
+      required: true
+  - type: textarea
+    id: HowToReproduce
+    attributes:
+      label: "再現方法"
+      placeholder: "再現方法"
+    validations:
+      required: true
+  - type: textarea
+    id: RevisionProposal
+    attributes:
+      label: "修正案"
+      placeholder: "修正案"
+    validations:
+      required: false
