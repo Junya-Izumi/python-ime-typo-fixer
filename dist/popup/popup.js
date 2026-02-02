@@ -1,10 +1,10 @@
 const qs = (selector, parent = document) => parent.querySelector(selector);
-const getStorage = (key) => new Promise((resolve, reject) => {
-  chrome.storage.local.get(key, (result) => resolve(result[key]));
+const getSetting = () => new Promise((resolve) => {
+  return chrome.storage.local.get(["setting"], (result) => resolve(result["setting"]));
 });
 const input_itActive = qs(".setting-isActive");
 window.addEventListener("DOMContentLoaded", async () => {
-  const setting = await getStorage("setting");
+  const setting = await getSetting();
   globalThis.python_ime_typo_fixer_setting = setting;
   input_itActive.checked = setting.isActive;
 });
