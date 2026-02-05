@@ -1,7 +1,11 @@
 const qs = (selector, parent = document) => parent.querySelector(selector);
 const getSetting = () => new Promise((resolve) => {
-  const setting = chrome.storage.local.get(["setting"], (result) => resolve(result["setting"]));
-  return setting;
+  return chrome.storage.local.get(
+    ["setting"],
+    (result) => {
+      resolve(result["setting"]);
+    }
+  );
 });
 const updateSetting = (setting) => {
   if (!globalThis.python_ime_typo_fixer) {

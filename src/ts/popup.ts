@@ -4,9 +4,10 @@ const qs = (selector: string, parent = document): Element | null => parent.query
 const qsAll = (selector: string, parent = document): NodeListOf<Element> | null => parent.querySelectorAll(selector);
 const debug = false
 const getSetting = () => new Promise((resolve) => {
-    const setting = chrome.storage.local.get(["setting"], (result) => resolve(result["setting"])) 
-    if (debug) console.log("python_ime_typo_fixer:getSetting",setting) 
-    return setting
+    return chrome.storage.local.get(["setting"], (result) => {
+        if (debug) console.log("python_ime_typo_fixer:getSetting",result["setting"]) 
+        resolve(result["setting"])}
+    ) 
 });
 
 //設定をglobalThisに入れる
