@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener((details)=>{
     if (details.reason == "install") {
-        const defaultExtensionSetting:extensionSetting = {
+        const defaultExtensionSetting:ExtensionSetting = {
             isActive:true
         }
         chrome.storage.local.set({

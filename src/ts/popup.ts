@@ -11,12 +11,21 @@ const getSetting = () => new Promise((resolve) => {
 });
 
 //設定をglobalThisに入れる
-const updateSetting = (setting: extensionSetting) => {
+const updateSetting = (setting: ExtensionSetting) => {
     if (debug) console.log("python_ime_typo_fixer:updateSetting", setting)
     if (!globalThis.python_ime_typo_fixer) {
         globalThis.python_ime_typo_fixer = {
             setting:undefined,
-            functions:undefined
+            functions:{
+                isExtensionSetting:function(value:unknown):value is ExtensionSetting{
+                    return (
+                        value != null &&
+                        typeof value === "object" &&
+                        'isActive' in value &&
+                        typeof value.isActive == "boolean"
+                    );
+                }
+            }
         }
     }
     globalThis.python_ime_typo_fixer.setting = setting
@@ -25,7 +34,7 @@ const updateSetting = (setting: extensionSetting) => {
 const input_itActive = qs(".setting-isActive") as HTMLInputElement;
 window.addEventListener('DOMContentLoaded', async () => {
     //設定をglobalThisに入れる
-    const setting =  await getSetting() as extensionSetting;
+    const setting =  await getSetting() as ExtensionSetting;
     updateSetting(setting)
     //ボタンに反映
     input_itActive.checked = setting.isActive
@@ -38,7 +47,7 @@ input_itActive.addEventListener('input', (e) => {
         const isActive = e.currentTarget.checked;
         const new_setting = {
             'isActive':isActive
-        } as extensionSetting
+        } as ExtensionSetting
         chrome.storage.local.set({
             'setting': new_setting
         })

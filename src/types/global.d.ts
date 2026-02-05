@@ -1,10 +1,12 @@
 export {}
 declare global {
-    interface extensionSetting {
+    interface ExtensionSetting {
         isActive: boolean
     }
     var python_ime_typo_fixer: {
-        setting:extensionSetting | undefined
-        functions:object| undefined
+        setting:ExtensionSetting | undefined
+        functions:{
+            isExtensionSetting(value:unknown):value is ExtensionSetting;
+        }| undefined
     };
 }

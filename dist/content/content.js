@@ -10,7 +10,11 @@ const updateSetting = (setting) => {
   if (!globalThis.python_ime_typo_fixer) {
     globalThis.python_ime_typo_fixer = {
       setting: void 0,
-      functions: void 0
+      functions: {
+        isExtensionSetting: function(value) {
+          return value != null && typeof value === "object" && "isActive" in value && typeof value.isActive == "boolean";
+        }
+      }
     };
   }
   globalThis.python_ime_typo_fixer.setting = setting;

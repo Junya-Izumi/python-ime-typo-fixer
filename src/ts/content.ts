@@ -9,28 +9,37 @@ const getSetting = () => new Promise((resolve) => {
 });
 
 //設定をglobalThisに入れる
-const updateSetting = (setting: extensionSetting) => {
+const updateSetting = (setting: ExtensionSetting) => {
     if (debug) console.log("python_ime_typo_fixer:updateSetting", setting)
     if (!globalThis.python_ime_typo_fixer) {
         globalThis.python_ime_typo_fixer = {
             setting:undefined,
-            functions:undefined
+            functions:{
+                isExtensionSetting:function(value:unknown):value is ExtensionSetting{
+                    return (
+                        value != null &&
+                        typeof value === "object" &&
+                        'isActive' in value &&
+                        typeof value.isActive == "boolean"
+                    );
+                }
+            }
         }
     }
     globalThis.python_ime_typo_fixer.setting = setting
 }
 
 window.addEventListener('load', async () => {
-    const setting = await getSetting() as extensionSetting
+    const setting = await getSetting() as ExtensionSetting
     updateSetting(setting)
 })
 
 //設定の変更を反映させる
 chrome.storage.onChanged.addListener((chnages, namespace: string) => {
     if (namespace === 'local' && chnages['setting']) {
-        const newValue = chnages['setting'].newValue as Partial<extensionSetting>
-        let oldSetting = globalThis.python_ime_typo_fixer.setting as extensionSetting
-        const newSetting:extensionSetting = {...oldSetting,...newValue}
+        const newValue = chnages['setting'].newValue as Partial<ExtensionSetting>
+        let oldSetting = globalThis.python_ime_typo_fixer.setting as ExtensionSetting
+        const newSetting:ExtensionSetting = {...oldSetting,...newValue}
         if (debug) console.log("python_ime_typo_fixer:newSetting", newSetting)
         updateSetting(newSetting)
     }
