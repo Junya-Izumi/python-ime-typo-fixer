@@ -1,5 +1,6 @@
 const getSetting = () => new Promise((resolve) => {
-  return chrome.storage.local.get(["setting"], (result) => resolve(result["setting"]));
+  const setting = chrome.storage.local.get(["setting"], (result) => resolve(result["setting"]));
+  return setting;
 });
 const updateSetting = (setting) => {
   if (!globalThis.python_ime_typo_fixer) {

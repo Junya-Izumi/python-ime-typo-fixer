@@ -4,7 +4,9 @@ const qs = (selector: string, parent = document): Element | null => parent.query
 const qsAll = (selector: string, parent = document): NodeListOf<Element> | null => parent.querySelectorAll(selector);
 const debug = false
 const getSetting = () => new Promise((resolve) => {
-    return chrome.storage.local.get(["setting"], (result) => resolve(result["setting"]))
+    const setting = chrome.storage.local.get(["setting"], (result) => resolve(result["setting"])) 
+    if (debug) console.log("python_ime_typo_fixer:getSetting",setting) 
+    return setting
 });
 
 //設定をglobalThisに入れる
