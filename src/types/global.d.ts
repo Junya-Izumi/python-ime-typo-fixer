@@ -1,10 +1,10 @@
 export {}
-declare global{
-    interface window{
-        python_ime_typo_fixer_setting:object
+declare global {
+    interface extensionSetting {
+        isActive: boolean
     }
-    interface extensionSetting{
-         isActive:boolean
-    }
-   var python_ime_typo_fixer_setting:extensionSetting | undefined
+    var python_ime_typo_fixer: {
+        setting:extensionSetting | undefined
+        functions:object| undefined
+    };
 }
