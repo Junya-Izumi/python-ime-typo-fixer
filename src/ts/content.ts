@@ -1,29 +1,49 @@
 import { INSPECT_MAX_BYTES } from "node:buffer";
 import { settings } from "node:cluster";
-const debug = false;
+const debug:boolean = false;
 const getSetting = () => new Promise((resolve) => {
-    return chrome.storage.local.get(["setting"], (result) => resolve(result["setting"]))
+    return chrome.storage.local.get(["setting"], (result) => {
+        if (debug) console.log("python_ime_typo_fixer:getSetting",result["setting"]) 
+        resolve(result["setting"])}
+    ) 
 });
 
 //設定をglobalThisに入れる
-const updateSetting = (setting: extensionSetting) => {
+const updateSetting = (setting: ExtensionSetting) => {
     if (debug) console.log("python_ime_typo_fixer:updateSetting", setting)
-    globalThis.python_ime_typo_fixer_setting = setting
+    if (!globalThis.python_ime_typo_fixer) {
+        globalThis.python_ime_typo_fixer = {
+            setting:undefined,
+            functions:{
+                isExtensionSetting:function(value:unknown):value is ExtensionSetting{
+                    return (
+                        value != null &&
+                        typeof value === "object" &&
+                        'isActive' in value &&
+                        typeof value.isActive == "boolean"
+                    );
+                }
+            }
+        }
+    }
+    globalThis.python_ime_typo_fixer.setting = setting
 }
 
 window.addEventListener('load', async () => {
-    const setting = await getSetting() as extensionSetting
+    const setting = await getSetting() as ExtensionSetting
     updateSetting(setting)
 })
 
 //設定の変更を反映させる
 chrome.storage.onChanged.addListener((chnages, namespace: string) => {
     if (namespace === 'local' && chnages['setting']) {
-        const newValue = chnages['setting'].newValue as Partial<extensionSetting>
-        let oldSetting = globalThis.python_ime_typo_fixer_setting as extensionSetting
-        const newSetting:extensionSetting = {...oldSetting,...newValue}
-        if (debug) console.log("python_ime_typo_fixer:newSetting", newSetting)
-        updateSetting(newSetting)
+        const newValue = chnages['setting'].newValue as Partial<ExtensionSetting>
+        let oldSetting = globalThis.python_ime_typo_fixer.setting
+        if (globalThis.python_ime_typo_fixer.functions?.isExtensionSetting(oldSetting)) {
+            const newSetting:ExtensionSetting = {...oldSetting,...newValue}
+            if (debug) console.log("python_ime_typo_fixer:newSetting", newSetting)
+            updateSetting(newSetting)
+        }
     }
 })
 
@@ -32,8 +52,8 @@ chrome.storage.onChanged.addListener((chnages, namespace: string) => {
  */
 window.addEventListener('compositionend', (e) => {
     const target = e.target;
-    if (!globalThis.python_ime_typo_fixer_setting) return
-    if (!globalThis.python_ime_typo_fixer_setting.isActive) return
+    if (!globalThis.python_ime_typo_fixer.setting) return
+    if (!globalThis.python_ime_typo_fixer.setting.isActive) return
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return console.info("pyてょん to python: This field is not supported")
     const targetReg: RegExp = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)(て|手)ょん)/g;
     if (targetReg.test(e.data)) {
