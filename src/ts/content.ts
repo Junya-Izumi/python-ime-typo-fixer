@@ -1,6 +1,6 @@
 import { INSPECT_MAX_BYTES } from "node:buffer";
 import { settings } from "node:cluster";
-const debug = false;
+const debug:boolean = false;
 const getSetting = () => new Promise((resolve) => {
     return chrome.storage.local.get(["setting"], (result) => {
         if (debug) console.log("python_ime_typo_fixer:getSetting",result["setting"]) 
@@ -38,10 +38,12 @@ window.addEventListener('load', async () => {
 chrome.storage.onChanged.addListener((chnages, namespace: string) => {
     if (namespace === 'local' && chnages['setting']) {
         const newValue = chnages['setting'].newValue as Partial<ExtensionSetting>
-        let oldSetting = globalThis.python_ime_typo_fixer.setting as ExtensionSetting
-        const newSetting:ExtensionSetting = {...oldSetting,...newValue}
-        if (debug) console.log("python_ime_typo_fixer:newSetting", newSetting)
-        updateSetting(newSetting)
+        let oldSetting = globalThis.python_ime_typo_fixer.setting
+        if (globalThis.python_ime_typo_fixer.functions?.isExtensionSetting(oldSetting)) {
+            const newSetting:ExtensionSetting = {...oldSetting,...newValue}
+            if (debug) console.log("python_ime_typo_fixer:newSetting", newSetting)
+            updateSetting(newSetting)
+        }
     }
 })
 

@@ -8,6 +8,10 @@ const getSetting = () => new Promise((resolve) => {
   );
 });
 const updateSetting = (setting) => {
+  globalThis.python_ime_typo_fixer.setting = setting;
+};
+const input_itActive = qs(".setting-isActive");
+window.addEventListener("DOMContentLoaded", async () => {
   if (!globalThis.python_ime_typo_fixer) {
     globalThis.python_ime_typo_fixer = {
       setting: void 0,
@@ -18,13 +22,11 @@ const updateSetting = (setting) => {
       }
     };
   }
-  globalThis.python_ime_typo_fixer.setting = setting;
-};
-const input_itActive = qs(".setting-isActive");
-window.addEventListener("DOMContentLoaded", async () => {
   const setting = await getSetting();
-  updateSetting(setting);
-  input_itActive.checked = setting.isActive;
+  if (globalThis.python_ime_typo_fixer.functions?.isExtensionSetting(setting)) {
+    updateSetting(setting);
+    input_itActive.checked = setting.isActive;
+  }
 });
 input_itActive.addEventListener("input", (e) => {
   if (e.currentTarget instanceof HTMLInputElement) {

@@ -27,8 +27,10 @@ chrome.storage.onChanged.addListener((chnages, namespace) => {
   if (namespace === "local" && chnages["setting"]) {
     const newValue = chnages["setting"].newValue;
     let oldSetting = globalThis.python_ime_typo_fixer.setting;
-    const newSetting = { ...oldSetting, ...newValue };
-    updateSetting(newSetting);
+    if (globalThis.python_ime_typo_fixer.functions?.isExtensionSetting(oldSetting)) {
+      const newSetting = { ...oldSetting, ...newValue };
+      updateSetting(newSetting);
+    }
   }
 });
 window.addEventListener("compositionend", (e) => {
