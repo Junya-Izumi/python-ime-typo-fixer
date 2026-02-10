@@ -1,38 +1,14 @@
 import { INSPECT_MAX_BYTES } from "node:buffer";
 import { settings } from "node:cluster";
-const debug:boolean = false;
-const getSetting = () => new Promise((resolve) => {
-    return chrome.storage.local.get(["setting"], (result) => {
-        if (debug) console.log("python_ime_typo_fixer:getSetting",result["setting"]) 
-        resolve(result["setting"])}
-    ) 
-});
+import * as globalFunctions from "./globalFunctions"
+// const debug:boolean = false;
 
-//設定をglobalThisに入れる
-const updateSetting = (setting: ExtensionSetting) => {
-    if (debug) console.log("python_ime_typo_fixer:updateSetting", setting)
-    if (!globalThis.python_ime_typo_fixer) {
-        globalThis.python_ime_typo_fixer = {
-            setting:undefined,
-            functions:{
-                isExtensionSetting:function(value:unknown):value is ExtensionSetting{
-                    return (
-                        value != null &&
-                        typeof value === "object" &&
-                        'isActive' in value &&
-                        typeof value.isActive == "boolean"
-                    );
-                }
-            }
-        }
-    }
-    globalThis.python_ime_typo_fixer.setting = setting
-}
-
-window.addEventListener('load', async () => {
-    const setting = await getSetting() as ExtensionSetting
-    updateSetting(setting)
-})
+globalFunctions.init()
+console.log("python_ime_typo_fixer:debug",globalFunctions.debug);
+(async () => {
+    const setting = (await globalFunctions.getSetting()) as ExtensionSetting
+    globalFunctions.updateSetting(setting)
+})()
 
 //設定の変更を反映させる
 chrome.storage.onChanged.addListener((chnages, namespace: string) => {
@@ -41,8 +17,8 @@ chrome.storage.onChanged.addListener((chnages, namespace: string) => {
         let oldSetting = globalThis.python_ime_typo_fixer.setting
         if (globalThis.python_ime_typo_fixer.functions?.isExtensionSetting(oldSetting)) {
             const newSetting:ExtensionSetting = {...oldSetting,...newValue}
-            if (debug) console.log("python_ime_typo_fixer:newSetting", newSetting)
-            updateSetting(newSetting)
+            if (globalFunctions.debug) console.log("python_ime_typo_fixer:newSetting", newSetting)
+            globalFunctions.updateSetting(newSetting)
         }
     }
 })
@@ -60,7 +36,7 @@ window.addEventListener('compositionend', (e) => {
         const newText = e.data.replace(targetReg, "python")
         const start = target.selectionStart ?? 0;
         const end = target.selectionEnd ?? 0;
-        if (debug) {
+        if (globalFunctions.debug) {
             console.log({
                 "e.target": e.target,
                 "e.data": e.data,

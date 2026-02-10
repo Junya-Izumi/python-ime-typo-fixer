@@ -1,42 +1,29 @@
-export {}
-//短縮化
-const qs = (selector: string, parent = document): Element | null => parent.querySelector(selector);
-const qsAll = (selector: string, parent = document): NodeListOf<Element> | null => parent.querySelectorAll(selector);
-const debug:boolean = false;
-const getSetting = () => new Promise((resolve) => {
-    return chrome.storage.local.get(["setting"], (result) => {
-        if (debug) console.log("python_ime_typo_fixer:getSetting",result["setting"]) 
-        resolve(result["setting"])}
-    ) 
-});
+// export {}
+// const debug:boolean = false;
+import * as globalFunctions from "./globalFunctions"
 
-//設定をglobalThisに入れる
-const updateSetting = (setting: ExtensionSetting) => {
-    if (debug) console.log("python_ime_typo_fixer:updateSetting", setting)
-    globalThis.python_ime_typo_fixer.setting = setting
-}
-
-const input_itActive = qs(".setting-isActive") as HTMLInputElement;
+const input_itActive = globalFunctions.qs(".setting-isActive") as HTMLInputElement;
 window.addEventListener('DOMContentLoaded', async () => {
-    if (!globalThis.python_ime_typo_fixer) {
-        globalThis.python_ime_typo_fixer = {
-            setting:undefined,
-            functions:{
-                isExtensionSetting:function(value:unknown):value is ExtensionSetting{
-                    return (
-                        value != null &&
-                        typeof value === "object" &&
-                        'isActive' in value &&
-                        typeof value.isActive == "boolean"
-                    );
-                }
-            }
-        }
-    }
+    globalFunctions.init()
+    // if (!globalThis.python_ime_typo_fixer) {
+    //     globalThis.python_ime_typo_fixer = {
+    //         setting:undefined,
+    //         functions:{
+    //             isExtensionSetting:function(value:unknown):value is ExtensionSetting{
+    //                 return (
+    //                     value != null &&
+    //                     typeof value === "object" &&
+    //                     'isActive' in value &&
+    //                     typeof value.isActive == "boolean"
+    //                 );
+    //             }
+    //         }
+    //     }
+    // }
     //設定をglobalThisに入れる
-    const setting =  await getSetting();
+    const setting =  await globalFunctions.getSetting();
     if (globalThis.python_ime_typo_fixer.functions?.isExtensionSetting(setting)) {
-        updateSetting(setting)
+        globalFunctions.updateSetting(setting)
         //ボタンに反映
         input_itActive.checked = setting.isActive
     }
