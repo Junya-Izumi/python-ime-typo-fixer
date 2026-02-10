@@ -9,16 +9,16 @@
   ],
   "permissions":["storage"],
   "action":{
-    "default_popup":"popup/popup.html"
+    "default_popup":"src/popup.html"
   },
   "content_scripts": [
     {
       "matches": ["https://*/*","http://*/*"], 
-      "js": ["content/content.js"],
+      "js": ["src/ts/content.ts"],
       "run_at": "document_idle"
     }
   ],
   "background":{
-    "service_worker":"background/background.js"
+    "service_worker":"src/ts/background.ts"
   }
 }
