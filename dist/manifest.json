@@ -1,24 +1,47 @@
 {
   "manifest_version": 3,
   "name": "pyてょん to python",
-  "short_name":"pyてょん to python",
-  "version": "2.0.0",
+  "short_name": "pyてょん to python",
+  "version": "2.1.0",
   "description": "「pyてょん」と誤変換したものを変換確定後に「python」自動変換します",
   "host_permissions": [
     "<all_urls>"
   ],
-  "permissions":["storage"],
-  "action":{
-    "default_popup":"popup/popup.html"
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_popup": "src/popup.html"
   },
   "content_scripts": [
     {
-      "matches": ["https://*/*","http://*/*"], 
-      "js": ["content/content.js"],
+      "js": [
+        "assets/content.ts-loader-DCIsgRx4.js"
+      ],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
       "run_at": "document_idle"
     }
   ],
-  "background":{
-    "service_worker":"background/background.js"
-  }
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "resources": [
+        "assets/globalFunctions-BMBbPiMy.js",
+        "assets/globalFunctions-BMBbPiMy.js.map",
+        "assets/content.ts-C4mjAthE.js",
+        "assets/content.ts-C4mjAthE.js.map"
+      ],
+      "use_dynamic_url": false
+    }
+  ]
 }
