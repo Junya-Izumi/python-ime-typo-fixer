@@ -3,7 +3,7 @@ declare global {
     interface ExtensionSetting {
         isActive: boolean
     }
-    var python_ime_typo_fixer: {
+    var pythonImeTypoFixer: {
         setting:ExtensionSetting | undefined
         functions:{
             isExtensionSetting(value:unknown):value is ExtensionSetting;

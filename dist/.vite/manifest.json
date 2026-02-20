@@ -5,21 +5,21 @@
     "src": "../../../../../../../../@crx/manifest",
     "isEntry": true
   },
-  "_content.ts-loader-DcM-za5v.js": {
-    "file": "assets/content.ts-loader-DcM-za5v.js",
-    "src": "_content.ts-loader-DcM-za5v.js"
+  "_content.ts-loader-DCIsgRx4.js": {
+    "file": "assets/content.ts-loader-DCIsgRx4.js",
+    "src": "_content.ts-loader-DCIsgRx4.js"
   },
-  "_globalFunctions-CMZ0Dx9V.js": {
-    "file": "assets/globalFunctions-CMZ0Dx9V.js",
+  "_globalFunctions-BMBbPiMy.js": {
+    "file": "assets/globalFunctions-BMBbPiMy.js",
     "name": "globalFunctions"
   },
   "src/popup.html": {
-    "file": "assets/popup.html-DFkQYWdI.js",
+    "file": "assets/popup.html-ByEruzIC.js",
     "name": "popup.html",
     "src": "src/popup.html",
     "isEntry": true,
     "imports": [
-      "_globalFunctions-CMZ0Dx9V.js"
+      "_globalFunctions-BMBbPiMy.js"
     ],
     "css": [
       "assets/popup-BvqCFyk3.css"
@@ -32,12 +32,12 @@
     "isEntry": true
   },
   "src/ts/content.ts": {
-    "file": "assets/content.ts-BuqaKyX3.js",
+    "file": "assets/content.ts-C4mjAthE.js",
     "name": "content.ts",
     "src": "src/ts/content.ts",
     "isEntry": true,
     "imports": [
-      "_globalFunctions-CMZ0Dx9V.js"
+      "_globalFunctions-BMBbPiMy.js"
     ]
   }
 }

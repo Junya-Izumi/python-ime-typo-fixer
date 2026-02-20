@@ -4,7 +4,7 @@ import * as globalFunctions from "./globalFunctions"
 // const debug:boolean = false;
 
 globalFunctions.init()
-console.log("python_ime_typo_fixer:debug",globalFunctions.debug);
+console.log("pythonImeTypoFixer:debug",globalFunctions.debug);
 (async () => {
     const setting = (await globalFunctions.getSetting()) as ExtensionSetting
     globalFunctions.updateSetting(setting)
@@ -14,10 +14,10 @@ console.log("python_ime_typo_fixer:debug",globalFunctions.debug);
 chrome.storage.onChanged.addListener((chnages, namespace: string) => {
     if (namespace === 'local' && chnages['setting']) {
         const newValue = chnages['setting'].newValue as Partial<ExtensionSetting>
-        let oldSetting = globalThis.python_ime_typo_fixer.setting
-        if (globalThis.python_ime_typo_fixer.functions?.isExtensionSetting(oldSetting)) {
+        let oldSetting = globalThis.pythonImeTypoFixer.setting
+        if (globalThis.pythonImeTypoFixer.functions?.isExtensionSetting(oldSetting)) {
             const newSetting:ExtensionSetting = {...oldSetting,...newValue}
-            if (globalFunctions.debug) console.log("python_ime_typo_fixer:newSetting", newSetting)
+            if (globalFunctions.debug) console.log("pythonImeTypoFixer:newSetting", newSetting)
             globalFunctions.updateSetting(newSetting)
         }
     }
@@ -28,8 +28,8 @@ chrome.storage.onChanged.addListener((chnages, namespace: string) => {
  */
 window.addEventListener('compositionend', (e) => {
     const target = e.target;
-    if (!globalThis.python_ime_typo_fixer.setting) return
-    if (!globalThis.python_ime_typo_fixer.setting.isActive) return
+    if (!globalThis.pythonImeTypoFixer.setting) return
+    if (!globalThis.pythonImeTypoFixer.setting.isActive) return
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return console.info("pyてょん to python: This field is not supported")
     const targetReg: RegExp = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)(て|手)ょん)/g;
     if (targetReg.test(e.data)) {

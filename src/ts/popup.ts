@@ -5,8 +5,8 @@ import * as globalFunctions from "./globalFunctions"
 const input_itActive = globalFunctions.qs(".setting-isActive") as HTMLInputElement;
 window.addEventListener('DOMContentLoaded', async () => {
     globalFunctions.init()
-    // if (!globalThis.python_ime_typo_fixer) {
-    //     globalThis.python_ime_typo_fixer = {
+    // if (!globalThis.pythonImeTypoFixer) {
+    //     globalThis.pythonImeTypoFixer = {
     //         setting:undefined,
     //         functions:{
     //             isExtensionSetting:function(value:unknown):value is ExtensionSetting{
@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     // }
     //設定をglobalThisに入れる
     const setting =  await globalFunctions.getSetting();
-    if (globalThis.python_ime_typo_fixer.functions?.isExtensionSetting(setting)) {
+    if (globalThis.pythonImeTypoFixer.functions?.isExtensionSetting(setting)) {
         globalFunctions.updateSetting(setting)
         //ボタンに反映
         input_itActive.checked = setting.isActive

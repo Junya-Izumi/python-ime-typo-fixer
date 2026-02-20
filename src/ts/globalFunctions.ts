@@ -1,12 +1,12 @@
-const debug:boolean = true;
+const debug:boolean = false;
 
 //短縮化
 const qs = (selector: string, parent = document): Element | null => parent.querySelector(selector);
 const qsAll = (selector: string, parent = document): NodeListOf<Element> | null => parent.querySelectorAll(selector);
 
 const init = async ()=>{
-    if (!globalThis.python_ime_typo_fixer) {
-    globalThis.python_ime_typo_fixer = {
+    if (!globalThis.pythonImeTypoFixer) {
+    globalThis.pythonImeTypoFixer = {
         // setting:await getSetting() as ExtensionSetting,
         setting:undefined,
         functions:{
@@ -20,21 +20,21 @@ const init = async ()=>{
             }
         }
     }
-    if (debug) console.log("pythone_ime_typo_fixer:init",globalThis.python_ime_typo_fixer)
+    if (debug) console.log("pythonImeTypoFixer:init",globalThis.pythonImeTypoFixer)
 }}
 const getSetting = () => new Promise((resolve) => {
     return chrome.storage.local.get(["setting"], (result) => {
-        if (debug) console.log("python_ime_typo_fixer:getSetting",result["setting"]) 
+        if (debug) console.log("pythonImeTypoFixer:getSetting",result["setting"]) 
         resolve(result["setting"])}
     ) 
 });
 //設定をglobalThisに入れる
 const updateSetting = (setting: ExtensionSetting) => {
-    if (debug) console.log("python_ime_typo_fixer:updateSetting", setting)
-    if (!globalThis.python_ime_typo_fixer) {
+    if (debug) console.log("pythonImeTypoFixer:updateSetting", setting)
+    if (!globalThis.pythonImeTypoFixer) {
         init()
     }
-    globalThis.python_ime_typo_fixer.setting = setting
+    globalThis.pythonImeTypoFixer.setting = setting
 }
 
 export {

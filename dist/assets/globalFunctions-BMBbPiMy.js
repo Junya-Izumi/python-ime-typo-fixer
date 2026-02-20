@@ -1,0 +1,2 @@
+const e=!1,o=(e,o=document)=>o.querySelector(e),t=async()=>{globalThis.pythonImeTypoFixer||(globalThis.pythonImeTypoFixer={setting:void 0,functions:{isExtensionSetting:function(e){return null!=e&&"object"==typeof e&&"isActive"in e&&"boolean"==typeof e.isActive}}})},i=()=>new Promise(e=>chrome.storage.local.get(["setting"],o=>{e(o.setting)})),n=e=>{globalThis.pythonImeTypoFixer||t(),globalThis.pythonImeTypoFixer.setting=e};export{e as d,i as g,t as i,o as q,n as u};
+//# sourceMappingURL=globalFunctions-BMBbPiMy.js.map
