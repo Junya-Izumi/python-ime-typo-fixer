@@ -1,6 +1,6 @@
 // const debug:boolean = false;
 
-import { ExtensionSetting } from "../types";
+import type { ExtensionSetting } from "../types";
 import { getSetting, isExtensionSetting, qs, updateSetting } from "./globals";
 
 const input_itActive = qs(".setting-isActive") as HTMLInputElement;

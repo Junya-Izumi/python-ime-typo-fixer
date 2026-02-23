@@ -1,4 +1,4 @@
-import { ExtensionSetting } from "../types"
+import type { ExtensionSetting } from "../types"
 
 chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason == "install") {
