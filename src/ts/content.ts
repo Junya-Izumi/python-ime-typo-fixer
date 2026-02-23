@@ -1,28 +1,24 @@
 import { ExtensionSetting } from "../types";
 import {
-    init,
     getSetting,
     updateSetting,
     debug,
-    pythonImeTypoFixer
+    isExtensionSetting
 } from "./globals"
 
-// const debug:boolean = false;
-
-init()
 console.log("pythonImeTypoFixer:debug", debug);
+let currentSetting: ExtensionSetting
 (async () => {
-    const setting = await getSetting()
-    updateSetting(setting)
+    currentSetting = await getSetting()
 })()
 
 //設定の変更を反映させる
-chrome.storage.onChanged.addListener((chnages, namespace: string) => {
-    if (namespace === 'local' && chnages['setting']) {
-        const newValue = chnages['setting'].newValue as Partial<ExtensionSetting>
-        let oldSetting = pythonImeTypoFixer.setting
-        if (pythonImeTypoFixer.functions?.isExtensionSetting(oldSetting)) {
-            const newSetting: ExtensionSetting = { ...oldSetting, ...newValue }
+chrome.storage.onChanged.addListener(async (changes, namespace: string) => {
+    if (namespace === 'local' && changes['setting']) {
+        const newValue = changes['setting'].newValue as Partial<ExtensionSetting>
+        currentSetting = await getSetting()
+        if (isExtensionSetting(currentSetting)) {
+            const newSetting: ExtensionSetting = { ...currentSetting, ...newValue }
             if (debug) console.log("pythonImeTypoFixer:newSetting", newSetting)
             updateSetting(newSetting)
         }
@@ -34,8 +30,7 @@ chrome.storage.onChanged.addListener((chnages, namespace: string) => {
  */
 window.addEventListener('compositionend', (e) => {
     const target = e.target;
-    if (!pythonImeTypoFixer.setting) return
-    if (!pythonImeTypoFixer.setting.isActive) return
+    if (!currentSetting?.isActive) return
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return console.info("pyてょん to python: This field is not supported")
     const targetReg: RegExp = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)(て|手)ょん)/g;
     if (targetReg.test(e.data)) {

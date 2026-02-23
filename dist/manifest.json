@@ -16,7 +16,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.ts-loader-DCIsgRx4.js"
+        "assets/content.ts-loader-CFvKi2CD.js"
       ],
       "matches": [
         "https://*/*",
@@ -36,10 +36,10 @@
         "https://*/*"
       ],
       "resources": [
-        "assets/globalFunctions-BMBbPiMy.js",
-        "assets/globalFunctions-BMBbPiMy.js.map",
-        "assets/content.ts-C4mjAthE.js",
-        "assets/content.ts-C4mjAthE.js.map"
+        "assets/globals-q3lYkHuB.js",
+        "assets/globals-q3lYkHuB.js.map",
+        "assets/content.ts-CXrJF-xI.js",
+        "assets/content.ts-CXrJF-xI.js.map"
       ],
       "use_dynamic_url": false
     }
