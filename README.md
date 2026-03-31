@@ -6,23 +6,30 @@
    ```bash
    git clone https://github.com/Junya-Izumi/python-ime-typo-fixer.git
    ```
-2. Chrome で chrome://extensions を開く
-3. デベロッパーモードを ON にする
-4. 「パッケージ化されていない拡張機能を読み込む」を選択
-5. このフォルダ内にある [./dist](./dist/) フォルダを選択<br>
-   distはビルド済みなので clone 後すぐに使うことができます。
+2. 依存パッケージをインストール
+   ```bash
+   npm install
+   ```
+3. ビルドする
+   ```bash
+   npm run build
+   ```
+4. Chrome で chrome://extensions を開く
+5. デベロッパーモードを ON にする
+6. 「パッケージ化されていない拡張機能を読み込む」を選択
+7. このフォルダ内にある [dist](./dist/) フォルダを選択
 ## アップデート
 1. このリポジトリを pull または download して既存のファイルを置き換える (pull 推奨)
 2. Chrome で chrome://extensions を開く
 3. この拡張機能の「再読み込み」をクリック<br>
-   **v2.0.0からは選択するフォルダーが [./dist](./dist/) になりました**<br>
-   v2.0.0未満からのアップデートでmanifestが見込めない場合は、一度拡張機能を削除し [./dist](./dist/) を選択して入れなおしてください
+   **v2.0.0からは選択するフォルダーが [dist](./dist/) になりました**<br>
+   v2.0.0未満からのアップデートでmanifestが読み込めない場合は、一度拡張機能を削除し [dist](./dist/) を選択して入れなおしてください
 ## 注意
 リッチテキストエディタや一部テキスト欄で非対応の可能性があります
 ## Issues 
-バグ報告・typo (誤字脱字)のテンプレートがあります
+バグ報告・タイポのテンプレートがあります
 [create new Issue](https://github.com/Junya-Izumi/python-ime-typo-fixer/issues/new/choose)
 ## License
-MIT license
+MIT License
 ***
 この拡張機能が役に立ったら、⭐️ をつけてもらえると励みになります
