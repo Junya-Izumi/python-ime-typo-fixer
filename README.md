@@ -26,9 +26,6 @@
    v2.0.0未満からのアップデートでmanifestが読み込めない場合は、一度拡張機能を削除し [dist](./dist/) を選択して入れなおしてください
 ## 注意
 リッチテキストエディタや一部テキスト欄で非対応の可能性があります
-## Issues 
-バグ報告・タイポのテンプレートがあります
-[create new Issue](https://github.com/Junya-Izumi/python-ime-typo-fixer/issues/new/choose)
 ## License
 MIT License
 ***
