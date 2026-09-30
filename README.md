@@ -2,6 +2,10 @@
 日本語入力で変換確定後に誤変換「pyてょん」を「python」に変換するブラウザ拡張機能です
 ## インストール
 **この拡張機能はストアに公開していません**
+> [!NOTE]
+> ビルド済みファイルからのインストールは[Releases](https://github.com/Junya-Izumi/python-ime-typo-fixer/releases)を確認してください
+
+ここではソースコードからビルドしてインストールする方法を書きます
 1. このリポジトリを clone または download する (clone 推奨)<br>
    ```bash
    git clone https://github.com/Junya-Izumi/python-ime-typo-fixer.git
