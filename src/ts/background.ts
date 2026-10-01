@@ -1,3 +1,5 @@
+import { ExtensionSetting } from "./types"
+
 chrome.runtime.onInstalled.addListener((details)=>{
     if (details.reason == "install") {
         const defaultExtensionSetting:ExtensionSetting = {

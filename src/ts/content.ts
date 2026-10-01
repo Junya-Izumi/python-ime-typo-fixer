@@ -2,8 +2,9 @@ import { INSPECT_MAX_BYTES } from "node:buffer";
 import { settings } from "node:cluster";
 import * as globalFunctions from "./globalFunctions"
 // const debug:boolean = false;
+import { ExtensionSetting } from "./types";
+import { pythonImeTypoFixer } from "./PythonImeTypoFixer";
 
-globalFunctions.init()
 console.log("pythonImeTypoFixer:debug",globalFunctions.debug);
 (async () => {
     const setting = (await globalFunctions.getSetting()) as ExtensionSetting
@@ -14,8 +15,8 @@ console.log("pythonImeTypoFixer:debug",globalFunctions.debug);
 chrome.storage.onChanged.addListener((chnages, namespace: string) => {
     if (namespace === 'local' && chnages['setting']) {
         const newValue = chnages['setting'].newValue as Partial<ExtensionSetting>
-        let oldSetting = globalThis.pythonImeTypoFixer.setting
-        if (globalThis.pythonImeTypoFixer.functions?.isExtensionSetting(oldSetting)) {
+        let oldSetting = pythonImeTypoFixer.setting
+        if (pythonImeTypoFixer.functions?.isExtensionSetting(oldSetting)) {
             const newSetting:ExtensionSetting = {...oldSetting,...newValue}
             if (globalFunctions.debug) console.log("pythonImeTypoFixer:newSetting", newSetting)
             globalFunctions.updateSetting(newSetting)
@@ -28,8 +29,8 @@ chrome.storage.onChanged.addListener((chnages, namespace: string) => {
  */
 window.addEventListener('compositionend', (e) => {
     const target = e.target;
-    if (!globalThis.pythonImeTypoFixer.setting) return
-    if (!globalThis.pythonImeTypoFixer.setting.isActive) return
+    if (!pythonImeTypoFixer.setting) return
+    if (!pythonImeTypoFixer.setting.isActive) return
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return console.info("pyてょん to python: This field is not supported")
     const targetReg: RegExp = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)(て|手)ょん)/g;
     if (targetReg.test(e.data)) {

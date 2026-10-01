@@ -1,10 +1,11 @@
 // export {}
 // const debug:boolean = false;
 import * as globalFunctions from "./globalFunctions"
+import { pythonImeTypoFixer } from "./PythonImeTypoFixer";
+import { ExtensionSetting } from "./types";
 
 const input_itActive = globalFunctions.qs(".setting-isActive") as HTMLInputElement;
 window.addEventListener('DOMContentLoaded', async () => {
-    globalFunctions.init()
     // if (!globalThis.pythonImeTypoFixer) {
     //     globalThis.pythonImeTypoFixer = {
     //         setting:undefined,
@@ -22,7 +23,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     // }
     //設定をglobalThisに入れる
     const setting =  await globalFunctions.getSetting();
-    if (globalThis.pythonImeTypoFixer.functions?.isExtensionSetting(setting)) {
+    if (pythonImeTypoFixer.functions.isExtensionSetting(setting)) {
         globalFunctions.updateSetting(setting)
         //ボタンに反映
         input_itActive.checked = setting.isActive
