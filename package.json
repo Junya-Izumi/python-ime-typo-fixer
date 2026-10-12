@@ -2,7 +2,8 @@
     "name": "python-ime-typo-fixer",
     "version": "",
     "scripts": {
-        "build": "rimraf dist && vite build"
+        "build": "rimraf dist && vite build",
+        "dev": "vite build --watch"
     },
     "devDependencies": {
         "@crxjs/vite-plugin": "^2.3.0",
