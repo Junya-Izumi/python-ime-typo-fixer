@@ -5,7 +5,7 @@
 > [!NOTE]
 > ビルド済みファイルからのインストールは[Releases](https://github.com/Junya-Izumi/python-ime-typo-fixer/releases)を確認してください
 
-ここではソースコードからビルドしてインストールする方法を書きます
+ソースコードからビルドしてインストールする方法
 1. このリポジトリを clone または download する (clone 推奨)<br>
    ```bash
    git clone https://github.com/Junya-Izumi/python-ime-typo-fixer.git
