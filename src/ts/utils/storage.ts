@@ -1,5 +1,3 @@
-import { ExtensionSetting } from "../types";
-import { pythonImeTypoFixer } from "../PythonImeTypoFixer";
 import { debug } from "../globals";
 
 export const getSetting = () => new Promise((resolve) => {
@@ -9,7 +7,3 @@ export const getSetting = () => new Promise((resolve) => {
     )
 });
 
-export const updateSetting = (setting: ExtensionSetting) => {
-    if (debug) console.log("pythonImeTypoFixer:updateSetting", setting)
-    pythonImeTypoFixer.setting = setting
-}
