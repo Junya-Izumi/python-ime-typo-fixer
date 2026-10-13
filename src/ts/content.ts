@@ -3,10 +3,10 @@ import { settings } from "node:cluster";
 // const debug:boolean = false;
 import { ExtensionSetting } from "./types";
 import { pythonImeTypoFixer } from "./PythonImeTypoFixer";
-import { debug } from "./globals";
+import { VITE_isDEVMODE } from "./globals";
 import { getSetting } from "./utils/storage";
 
-console.log("pythonImeTypoFixer:debug",debug);
+console.log("pythonImeTypoFixer:debug",VITE_isDEVMODE);
 (async () => {
     const setting = (await getSetting()) as ExtensionSetting
 })()
@@ -18,7 +18,7 @@ chrome.storage.onChanged.addListener((chnages, namespace: string) => {
         let oldSetting = pythonImeTypoFixer.setting
         if (pythonImeTypoFixer.functions?.isExtensionSetting(oldSetting)) {
             const newSetting:ExtensionSetting = {...oldSetting,...newValue}
-            if (debug) console.log("pythonImeTypoFixer:newSetting", newSetting)
+            if (VITE_isDEVMODE) console.log("pythonImeTypoFixer:newSetting", newSetting)
         }
     }
 })
@@ -36,7 +36,7 @@ window.addEventListener('compositionend', (e) => {
         const newText = e.data.replace(targetReg, "python")
         const start = target.selectionStart ?? 0;
         const end = target.selectionEnd ?? 0;
-        if (debug) {
+        if (VITE_isDEVMODE) {
             console.log({
                 "e.target": e.target,
                 "e.data": e.data,
