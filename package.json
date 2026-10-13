@@ -3,7 +3,7 @@
     "version": "",
     "scripts": {
         "build": "rimraf dist && vite build",
-        "dev": "vite build --watch"
+        "dev": "vite dev"
     },
     "devDependencies": {
         "@crxjs/vite-plugin": "^2.3.0",
