@@ -1,10 +1,11 @@
 // export {}
 // const debug:boolean = false;
-import * as globalFunctions from "./globalFunctions"
 import { pythonImeTypoFixer } from "./PythonImeTypoFixer";
 import { ExtensionSetting } from "./types";
+import { qs } from "./utils/dom"
+import { getSetting } from "./utils/storage";
 
-const input_itActive = globalFunctions.qs(".setting-isActive") as HTMLInputElement;
+const input_itActive = qs(".setting-isActive") as HTMLInputElement;
 window.addEventListener('DOMContentLoaded', async () => {
     // if (!globalThis.pythonImeTypoFixer) {
     //     globalThis.pythonImeTypoFixer = {
@@ -22,9 +23,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     //     }
     // }
     //設定をglobalThisに入れる
-    const setting =  await globalFunctions.getSetting();
+    const setting =  await getSetting();
     if (pythonImeTypoFixer.functions.isExtensionSetting(setting)) {
-        globalFunctions.updateSetting(setting)
         //ボタンに反映
         input_itActive.checked = setting.isActive
     }
@@ -37,7 +37,7 @@ input_itActive.addEventListener('input', (e) => {
         const isActive = e.currentTarget.checked;
         const new_setting:ExtensionSetting = {
             'isActive':isActive
-        } 
+        }
         chrome.storage.local.set({
             'setting': new_setting
         })

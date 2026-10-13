@@ -1,14 +1,14 @@
 import { INSPECT_MAX_BYTES } from "node:buffer";
 import { settings } from "node:cluster";
-import * as globalFunctions from "./globalFunctions"
 // const debug:boolean = false;
 import { ExtensionSetting } from "./types";
 import { pythonImeTypoFixer } from "./PythonImeTypoFixer";
+import { debug } from "./globals";
+import { getSetting } from "./utils/storage";
 
-console.log("pythonImeTypoFixer:debug",globalFunctions.debug);
+console.log("pythonImeTypoFixer:debug",debug);
 (async () => {
-    const setting = (await globalFunctions.getSetting()) as ExtensionSetting
-    globalFunctions.updateSetting(setting)
+    const setting = (await getSetting()) as ExtensionSetting
 })()
 
 //設定の変更を反映させる
@@ -18,8 +18,7 @@ chrome.storage.onChanged.addListener((chnages, namespace: string) => {
         let oldSetting = pythonImeTypoFixer.setting
         if (pythonImeTypoFixer.functions?.isExtensionSetting(oldSetting)) {
             const newSetting:ExtensionSetting = {...oldSetting,...newValue}
-            if (globalFunctions.debug) console.log("pythonImeTypoFixer:newSetting", newSetting)
-            globalFunctions.updateSetting(newSetting)
+            if (debug) console.log("pythonImeTypoFixer:newSetting", newSetting)
         }
     }
 })
@@ -37,7 +36,7 @@ window.addEventListener('compositionend', (e) => {
         const newText = e.data.replace(targetReg, "python")
         const start = target.selectionStart ?? 0;
         const end = target.selectionEnd ?? 0;
-        if (globalFunctions.debug) {
+        if (debug) {
             console.log({
                 "e.target": e.target,
                 "e.data": e.data,
