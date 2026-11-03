@@ -1,30 +1,12 @@
-// export {}
-// const debug:boolean = false;
-import { pythonImeTypoFixer } from "./PythonImeTypoFixer";
 import { ExtensionSetting } from "./types";
+import { isExtensionSetting } from "./utils/typeGuards";
 import { qs } from "./utils/dom"
 import { getSetting } from "./utils/storage";
 
 const input_itActive = qs(".setting-isActive") as HTMLInputElement;
 window.addEventListener('DOMContentLoaded', async () => {
-    // if (!globalThis.pythonImeTypoFixer) {
-    //     globalThis.pythonImeTypoFixer = {
-    //         setting:undefined,
-    //         functions:{
-    //             isExtensionSetting:function(value:unknown):value is ExtensionSetting{
-    //                 return (
-    //                     value != null &&
-    //                     typeof value === "object" &&
-    //                     'isActive' in value &&
-    //                     typeof value.isActive == "boolean"
-    //                 );
-    //             }
-    //         }
-    //     }
-    // }
-    //設定をglobalThisに入れる
     const setting =  await getSetting();
-    if (pythonImeTypoFixer.functions.isExtensionSetting(setting)) {
+    if (isExtensionSetting(setting)) {
         //ボタンに反映
         input_itActive.checked = setting.isActive
     }
