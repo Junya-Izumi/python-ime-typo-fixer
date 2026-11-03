@@ -1,22 +1,21 @@
-import { INSPECT_MAX_BYTES } from "node:buffer";
-import { settings } from "node:cluster";
-// const debug:boolean = false;
 import { ExtensionSetting } from "./types";
-import { pythonImeTypoFixer } from "./PythonImeTypoFixer";
+import { isExtensionSetting } from "./utils/typeGuards";
 import { VITE_isDEVMODE } from "./globals";
 import { getSetting } from "./utils/storage";
 
 console.log("pythonImeTypoFixer:debug",VITE_isDEVMODE);
+
+let currentSetting:ExtensionSetting;
 (async () => {
-    const setting = (await getSetting()) as ExtensionSetting
+    currentSetting = (await getSetting()) as ExtensionSetting
 })()
 
 //設定の変更を反映させる
 chrome.storage.onChanged.addListener((chnages, namespace: string) => {
     if (namespace === 'local' && chnages['setting']) {
         const newValue = chnages['setting'].newValue as Partial<ExtensionSetting>
-        let oldSetting = pythonImeTypoFixer.setting
-        if (pythonImeTypoFixer.functions?.isExtensionSetting(oldSetting)) {
+        let oldSetting = currentSetting
+        if (isExtensionSetting(oldSetting)) {
             const newSetting:ExtensionSetting = {...oldSetting,...newValue}
             if (VITE_isDEVMODE) console.log("pythonImeTypoFixer:newSetting", newSetting)
         }
@@ -28,8 +27,8 @@ chrome.storage.onChanged.addListener((chnages, namespace: string) => {
  */
 window.addEventListener('compositionend', (e) => {
     const target = e.target;
-    if (!pythonImeTypoFixer.setting) return
-    if (!pythonImeTypoFixer.setting.isActive) return
+    if (!currentSetting) return
+    if (!currentSetting.isActive) return
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return console.info("pyてょん to python: This field is not supported")
     const targetReg: RegExp = /((p|ｐ|P|Ｐ)(y|ｙ|Y|Ｙ)(て|手)ょん)/g;
     if (targetReg.test(e.data)) {
