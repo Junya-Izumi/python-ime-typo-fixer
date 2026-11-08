@@ -1,7 +1,7 @@
-import { ExtensionSetting } from "./types";
-import { isExtensionSetting } from "./utils/typeGuards";
-import { qs } from "./utils/dom"
-import { getSetting } from "./utils/storage";
+import type { ExtensionSetting } from "../../types";
+import { isExtensionSetting } from "../../utils/typeGuards";
+import { qs } from "../../utils/dom"
+import { getSetting } from "../../utils/storage";
 
 const input_itActive = qs(".setting-isActive") as HTMLInputElement;
 window.addEventListener('DOMContentLoaded', async () => {

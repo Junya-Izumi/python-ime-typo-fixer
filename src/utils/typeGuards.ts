@@ -1,4 +1,4 @@
-import { ExtensionSetting } from "../types";
+import type { ExtensionSetting } from "../types";
 
 export function isExtensionSetting(value: unknown): value is ExtensionSetting {
     return (
