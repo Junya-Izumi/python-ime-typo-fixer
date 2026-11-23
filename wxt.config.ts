@@ -12,7 +12,7 @@ export default defineConfig({
         name: "pyてょん to python",
         short_name: "pyてょん to python",
         description: "「pyてょん」と誤変換したものを変換確定後に「python」と自動で変換します",
-        version: "2.1.0",
+        version: "2.2.0",
         permissions: ["storage"],
         action: {
             default_popup: "popup.html"

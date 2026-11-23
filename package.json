@@ -2,7 +2,7 @@
   "name": "python-ime-typo-fixer",
   "description": "「pyてょん」と誤変換したものを変換確定後に「python」と自動で変換するChrome拡張機能",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "module",
   "scripts": {
     "dev": "wxt",
